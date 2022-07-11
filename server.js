@@ -5,9 +5,6 @@ const cors = require('cors')
 // const connectDB = require('./config/db');
 
 
-
-
-
 const app = express();
 
 app.use(cors());
@@ -19,8 +16,11 @@ app.get('/', (req, res) => {
 });
 
 
+app.use('/api/users', require('./routes/api/users'));
 app.use('/api/cuentas', require('./routes/api/cuentas'));
-app.use('/api/profile', require('./routes/api/profile'));
+app.use('/api/orgs', require('./routes/api/orgs'));
+
+
 
 
 const PORT = process.env.PORT || 3000;

@@ -6,7 +6,7 @@ module.exports.getCuentas = async () => {
     try {
         let pool = await sql.connect(config);
         let categorias = await pool.request().query("select * from CuentaDonacion");
-        console.log(categorias);
+
         return categorias.recordsets[0];
 
 
@@ -15,6 +15,18 @@ module.exports.getCuentas = async () => {
     }
 }
 
+module.exports.getCuentasOrg = async () => {
+    try {
+        let pool = await sql.connect(config);
+        let categorias = await pool.request().query("select * from CuentaDonacionOrg");
+
+        return categorias.recordsets[0];
+
+
+    } catch (error) {
+        console.log("error uwu");
+    }
+}
 module.exports.insertCuenta = async (req, h) => {
     try {
         let pool = await sql.connect(config);

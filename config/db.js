@@ -1,31 +1,33 @@
-const config = {
-    user: "adminuwu", // update me
-    password: "Salu2uwu", // updat
-    server: "holauwu.database.windows.net",
-    database: "Hola",
-    options: {
-        trustedconnection: false,
-        enabledArithAbort: true,
-        encryt: false
-    }
-}
-
 // const config = {
-//     authentication: {
-//         options: {
-//             userName: process.env.DB_USER,
-//             password: process.env.DB_PASSWORD
-//         },
-//         type: 'default'
-//     },
-//     server: process.env.DB_SERVER,
+//     user: "adminuwu", // update me
+//     password: "Salu2uwu", // updat
+//     server: "holauwu.database.windows.net",
+//     database: "Hola",
 //     options: {
-//         database: process.env.DB_NAME,
-//         encrypt: true,
-//         rowCollectionOnDone: true,
-
+//         trustedconnection: false,
+//         enabledArithAbort: true,
+//         encryt: false
 //     }
 // }
+
+const config = {
+    authentication: {
+        options: {
+            userName: process.env.DB_USER,
+            password: process.env.DB_PASSWORD
+        },
+        type: 'default'
+    },
+    server: process.env.DB_SERVER,
+    database: process.env.DB_NAME,
+    options: {
+        encrypt: true,
+        rowCollectionOnDone: true,
+        trustedconnection: false,
+        enabledArithAbort: true,
+
+    }
+}
 
 // const connectDB = async (execQuery) => {
 //     try {

@@ -1,13 +1,16 @@
-const dbcategoria = require('../../handlers/cuentas');
+const handlers = require('../../handlers/index');
 const express = require('express');
+
 const router = express.Router();
+
+
 
 
 //get
 router.get('/', async (req, res) => {
     console.log('Hola');
     try {
-        const result = await dbcategoria.getCuentas();
+        const result = await handlers.cuentas.getCuentas();
         res.json(result);
 
     } catch (error) {
@@ -28,7 +31,7 @@ router.get('/:id', (req, res) => {
 
 //postCuenta
 
-router.route('/agregar').post((req, res) => {
+router.post('/agregar', (req, res) => {
     let cuenta = { ...req.body }
     dbcategoria.insertCuenta(cuenta).then(result => {
         res.json(result[0]);
@@ -38,7 +41,7 @@ router.route('/agregar').post((req, res) => {
 
 //update
 
-router.route('/modificar').post((req, response) => {
+router.post('/modificar', (req, response) => {
     let cuenta = { ...req.body }
     dbcategoria.updateCuenta(cuenta).then(result => {
         response.json(result[0]);
@@ -47,7 +50,7 @@ router.route('/modificar').post((req, response) => {
 
 //delete
 
-router.delete('/borrar/:id', (req, res) => {
+router.get('/borrar/:id', (req, res) => {
     dbcategoria.deleteCuenta(req.params.id).then(result => {
         res.json(result[0]);
     })
