@@ -1,4 +1,6 @@
-var config = require('../config/db');
+const Singleton = require('../config/db');
+var config = new Singleton();
+
 const sql = require('mssql');
 
 module.exports.insertOrg = async (req) => {
@@ -13,6 +15,39 @@ module.exports.insertOrg = async (req) => {
 
     } catch (error) {
         console.error(error);
+        console.log("error uwu");
+    }
+}
+
+module.exports.getIDOrg = async (IDObjectOrg) => {
+    try {
+
+        let pool = await sql.connect(config);
+        let res = await pool.request()
+            .input('IDObjectOrganizacion', sql.VarChar, IDObjectOrg)
+            .query('select IDOrganizacion from organizacion where IDObjectOrganizacion = @IDObjectOrganizacion');
+
+        return res.recordsets[0];
+
+    } catch (error) {
+        console.error(error);
+        console.log("error uwu");
+    }
+}
+
+module.exports.getCuentasOrg = async (IDOrganizacion) => {
+    try {
+        let pool = await sql.connect(config);
+        let categorias = await pool.request()
+            .input('IDOrganizacion', sql.Int, IDOrganizacion)
+            .query(`select IDCuenta, NoCuenta, Banco, TipoCuenta from CuentaDonacionOrg  as CDO
+            JOIN CuentaDonacion as CD on  CD.IDCuenta = CDO.IDCuentaDonacion
+            Where CDO.IDOrganizacion = @IDOrganizacion`);
+
+        return categorias.recordsets[0];
+
+
+    } catch (error) {
         console.log("error uwu");
     }
 }

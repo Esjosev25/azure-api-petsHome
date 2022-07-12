@@ -1,53 +1,32 @@
-// const config = {
-//     user: "adminuwu", // update me
-//     password: "Salu2uwu", // updat
-//     server: "holauwu.database.windows.net",
-//     database: "Hola",
-//     options: {
-//         trustedconnection: false,
-//         enabledArithAbort: true,
-//         encryt: false
-//     }
-// }
+class Singleton {
+    static config = new Singleton();
+    constructor() {
+    }
+    static getInstance() {
+        if (!this.config) {
 
-const config = {
-    authentication: {
-        options: {
-            userName: process.env.DB_USER,
-            password: process.env.DB_PASSWORD
-        },
-        type: 'default'
-    },
-    server: process.env.DB_SERVER,
-    database: process.env.DB_NAME,
-    options: {
-        encrypt: true,
-        rowCollectionOnDone: true,
-        trustedconnection: false,
-        enabledArithAbort: true,
+            this.config = {
+                authentication: {
+                    options: {
+                        userName: process.env.DB_USER,
+                        password: process.env.DB_PASSWORD
+                    },
+                    type: 'default'
+                },
+                server: process.env.DB_SERVER,
+                database: process.env.DB_NAME,
+                options: {
+                    encrypt: true,
+                    rowCollectionOnDone: true,
+                    trustedconnection: false,
+                    enabledArithAbort: true,
 
+                }
+            };
+        }
+        return this.config;
     }
 }
 
-// const connectDB = async (execQuery) => {
-//     try {
-//         const connection = new Connection(config);
-//         connection.on('connect', err => {
-//             if (!err) {
-//                 console.log('Connected to database');
-//                 execQuery(err);
-//             } else {
 
-//             }
-//         })
-//         connection.connect();
-//     } catch (error) {
-//         console.log(error);
-//         // Exit process with failure
-//         process.exit(1);
-//     }
-
-
-// }
-
-module.exports = config;
+module.exports = Singleton;

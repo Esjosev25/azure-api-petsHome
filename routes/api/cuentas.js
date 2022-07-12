@@ -5,56 +5,37 @@ const router = express.Router();
 
 
 
+// @route   POST api/orgs
+// @desc    post org
+// @access  Public
 
-//get
-router.get('/', async (req, res) => {
-    console.log('Hola');
+router.post('/', async (req, res) => {
     try {
-        const result = await handlers.cuentas.getCuentas();
-        res.json(result);
-
+        const { cuenta } = req.body;
+        console.log(cuenta);
+        const result = await handlers.cuentas.insertAccount(cuenta);
+        res.status(200).json(result);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
     }
+});
+
+// @route   POST api/cuenta-orgs
+// @desc    post cuenta-org
+// @access  Public
+router.post('/cuenta-org', async (req, res) => {
+
+    try {
+        const { cuenta } = req.body;
+
+        const result = await handlers.cuentas.insertAccountOrg(cuenta);
+        res.status(200).json(result);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+
 })
-
-
-//getNoCuenta
-
-router.get('/:id', (req, res) => {
-    dbcategoria.getCuentaID(req.params.id).then(result => {
-        res.json(result[0]);
-    })
-})
-
-
-//postCuenta
-
-router.post('/agregar', (req, res) => {
-    let cuenta = { ...req.body }
-    dbcategoria.insertCuenta(cuenta).then(result => {
-        res.json(result[0]);
-    })
-})
-
-
-//update
-
-router.post('/modificar', (req, response) => {
-    let cuenta = { ...req.body }
-    dbcategoria.updateCuenta(cuenta).then(result => {
-        response.json(result[0]);
-    })
-})
-
-//delete
-
-router.get('/borrar/:id', (req, res) => {
-    dbcategoria.deleteCuenta(req.params.id).then(result => {
-        res.json(result[0]);
-    })
-})
-
 
 module.exports = router;
