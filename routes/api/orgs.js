@@ -38,9 +38,9 @@ router.get('/:id', async (req, res) => {
 // @route   POST api/orgs
 // @desc    post org
 // @access  Public
-router.get('/cuentas', async (req, res) => {
+router.get('/cuentas/:id', async (req, res) => {
     try {
-        const { IDOrganizacion } = req.body;
+        const IDOrganizacion = req.params.id;
 
         const result = await handlers.orgs.getCuentasOrg(IDOrganizacion);
         res.status(200).json(result);
