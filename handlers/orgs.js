@@ -25,9 +25,9 @@ module.exports.getIDOrg = async (IDObjectOrg) => {
         let pool = await sql.connect(config);
         let res = await pool.request()
             .input('IDObjectOrganizacion', sql.VarChar, IDObjectOrg)
-            .query('select IDOrganizacion from organizacion where IDObjectOrganizacion = @IDObjectOrganizacion');
+            .query('select IDOrganizacion as idOrganizacion from organizacion where IDObjectOrganizacion = @IDObjectOrganizacion');
 
-        return res.recordsets[0];
+        return res.recordsets[0][0];
 
     } catch (error) {
         console.error(error);

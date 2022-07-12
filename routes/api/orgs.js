@@ -19,15 +19,15 @@ router.post('/', async (req, res) => {
 });
 
 
-// @route   POST api/orgs
-// @desc    post org
+// @route   Get api/orgs
+// @desc    pGetost org
 // @access  Public
-router.get('/', async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
 
-        const { IDOrganizacion } = req.params;
+        const IDObject = req.params.id;
 
-        const result = await handlers.orgs.getIDOrg(IDOrganizacion);
+        const result = await handlers.orgs.getIDOrg(IDObject);
         res.status(200).json(result);
     } catch (error) {
         console.error(error);
