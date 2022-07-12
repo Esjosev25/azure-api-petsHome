@@ -1,5 +1,5 @@
-const Singleton = require('../config/db');
-var config = new Singleton();
+const Singleton = require('../config/db').getInstance();
+config = Singleton.config;
 
 const sql = require('mssql');
 
@@ -15,7 +15,7 @@ module.exports.insertOrg = async (req) => {
 
     } catch (error) {
         console.error(error);
-        console.log("error uwu");
+
     }
 }
 
@@ -48,6 +48,7 @@ module.exports.getCuentasOrg = async (IDOrganizacion) => {
 
 
     } catch (error) {
+        console.error(error);
         console.log("error uwu");
     }
 }

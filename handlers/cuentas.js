@@ -1,9 +1,12 @@
-var config = require('../config/db');
+const Singleton = require('../config/db').getInstance();
+config = Singleton.config;
+
 const sql = require('mssql');
 
 
 module.exports.getCuentas = async () => {
     try {
+
         let pool = await sql.connect(config);
         let categorias = await pool.request().query("select * from CuentaDonacion");
 
@@ -11,7 +14,8 @@ module.exports.getCuentas = async () => {
 
 
     } catch (error) {
-        console.log("error uwu");
+        console.error(error);
+
     }
 }
 
@@ -19,12 +23,12 @@ module.exports.getCuentas = async () => {
 
 module.exports.insertAccount = async (cuenta) => {
     try {
-        const { NoCuenta, Banco, TipoCuenta } = cuenta
+        const { noCuenta, banco, tipoCuenta } = cuenta
         let pool = await sql.connect(config);
         await pool.request()
-            .input('NoCuenta', sql.VarChar(255), NoCuenta)
-            .input('Banco', sql.VarChar(255), Banco)
-            .input('TipoCuenta', sql.VarChar(255), TipoCuenta)
+            .input('NoCuenta', sql.VarChar(255), noCuenta)
+            .input('Banco', sql.VarChar(255), banco)
+            .input('TipoCuenta', sql.VarChar(255), tipoCuenta)
             .query('insert into CuentaDonacion values (@NoCuenta, @Banco, @TipoCuenta)');
 
         const res = await pool.request()
@@ -34,17 +38,17 @@ module.exports.insertAccount = async (cuenta) => {
 
     } catch (error) {
         console.error(error);
-        console.log("error uwu");
+
     }
 }
 
 module.exports.insertAccountOrg = async (cuentaOrg) => {
     try {
-        const { IDCuenta, IDOrganizacion } = cuentaOrg
+        const { iDCuenta, iDOrganizacion } = cuentaOrg
         let pool = await sql.connect(config);
         await pool.request()
-            .input('IDCuentaDonacion', sql.Int, IDCuenta)
-            .input('IDOrganizacion', sql.Int, IDOrganizacion)
+            .input('IDCuentaDonacion', sql.Int, iDCuenta)
+            .input('IDOrganizacion', sql.Int, iDOrganizacion)
             .query('insert into CuentaDonacionOrg values (@IDCuentaDonacion, @IDOrganizacion)');
 
         const res = await pool.request()

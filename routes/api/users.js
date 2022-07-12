@@ -7,6 +7,7 @@ const router = express.Router();
 // @access  Public
 router.post('/', async (req, res) => {
     try {
+
         const IDUser = req.body;
 
         const result = await handlers.users.insertUser(IDUser);

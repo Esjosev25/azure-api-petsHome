@@ -7,6 +7,7 @@ const router = express.Router();
 // @access  Public
 router.post('/', async (req, res) => {
     try {
+
         const IDOrg = req.body;
 
         const result = await handlers.orgs.insertOrg(IDOrg);
@@ -23,7 +24,8 @@ router.post('/', async (req, res) => {
 // @access  Public
 router.get('/', async (req, res) => {
     try {
-        const { IDOrganizacion } = req.body;
+
+        const { IDOrganizacion } = req.params;
 
         const result = await handlers.orgs.getIDOrg(IDOrganizacion);
         res.status(200).json(result);

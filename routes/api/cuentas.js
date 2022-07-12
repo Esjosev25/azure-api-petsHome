@@ -11,8 +11,8 @@ const router = express.Router();
 
 router.post('/', async (req, res) => {
     try {
-        const { cuenta } = req.body;
-        console.log(cuenta);
+        const cuenta = req.body;
+
         const result = await handlers.cuentas.insertAccount(cuenta);
         res.status(200).json(result);
     } catch (error) {
@@ -27,7 +27,8 @@ router.post('/', async (req, res) => {
 router.post('/cuenta-org', async (req, res) => {
 
     try {
-        const { cuenta } = req.body;
+
+        const cuenta = req.body;
 
         const result = await handlers.cuentas.insertAccountOrg(cuenta);
         res.status(200).json(result);
